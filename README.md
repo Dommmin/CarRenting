@@ -14,7 +14,8 @@
 <p>php artisan migrate --seed</p>
 <p>npm run dev</p>
 <p>php artisan serve</p>
-
+<br>
+<br>
 <div>Accounts:</div>
 <br>
 <p>ADMIN</p>
