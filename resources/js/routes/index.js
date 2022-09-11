@@ -7,8 +7,29 @@ import AdminCarIndex from '../components/Admin/Car/Index.vue';
 import AdminRentIndex from '../components/Admin/Rent/Index.vue';
 import AdminCarCreate from '../components/Admin/Car/Create.vue';
 import AdminCarEdit from '../components/Admin/Car/Edit.vue';
+import Login from '../components/Auth/Login.vue';
+import Register from '../components/Auth/Register.vue';
+
+function auth(to, from, next) {
+    if (JSON.parse(localStorage.getItem('loggedIn'))) {
+        next()
+    }
+    next('login')
+}
 
 const routes = [
+    // Auth
+    {
+        path: '/login',
+        name: 'login',
+        component: Login,
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register,
+    },
+    // Guest and User
     {
         path: '/',
         redirect: { name: 'cars.index' },
@@ -26,11 +47,13 @@ const routes = [
             }
         ]
     },
+    // Admin only
     {
         redirect: { name: 'admin.index' },
         path: '/admin',
         name: 'admin',
         component: AdminMain,
+        beforeEnter: auth,
         children: [
             {
                 path: '/admin/cars',

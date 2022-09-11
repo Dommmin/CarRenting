@@ -17,13 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::put('admin/cars/{car}/available', [AdminCarController::class, 'available']);
+    Route::put('admin/cars/{car}/unavailable', [AdminCarController::class, 'unAvailable']);
+    Route::apiResource('admin/cars', AdminCarController::class);
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+});
 
 Route::get('/car/{car:slug}', [CarController::class, 'show']);
 Route::apiResource('cars', CarController::class);
 Route::apiResource('rents', RentController::class);
-Route::put('admin/cars/{car}/available', [AdminCarController::class, 'available']);
-Route::put('admin/cars/{car}/unavailable', [AdminCarController::class, 'unAvailable']);
-Route::apiResource('admin/cars', AdminCarController::class);
+
