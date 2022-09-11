@@ -29,6 +29,11 @@ class Car extends Model
         return $this->hasMany(Rent::class);
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     /**
      * @return SlugOptions
      */

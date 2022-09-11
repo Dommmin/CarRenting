@@ -118,6 +118,14 @@ export default function useCars() {
             })
     };
 
+    const addFavorite = async (car) => {
+        axios.post('/api/cars/' + car.id + '/favorite', car)
+            .then(response => {
+                router.push({ name: 'cars.index' })
+                getCars();
+            })
+    };
+
     const deleteCar = async (id) => {
         swal({
             title: 'Are you sure?',
@@ -213,5 +221,6 @@ export default function useCars() {
         deleteRent,
         validationErrors,
         isLoading,
+        addFavorite,
     }
 }

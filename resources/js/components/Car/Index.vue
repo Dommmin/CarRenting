@@ -53,11 +53,18 @@
                                 <p>{{ car.price }} zł / dzień</p>
                             </div>
                             <hr class="mr-5 ml-5 mt-3 mb-3">
-                            <div class="flex justify-center items-center">
-                                <button class="bg-yellow-200 rounded-2xl p-2 text-blue-500 hover:text-red-500 duration-500">
-                                    <i class="flex justify-center items-center far fa-heart text-3xl"></i>
-                                </button>
-                            </div>
+
+
+                            <form @submit.prevent="addFavorite(car)">
+                                <div class="flex justify-center items-center">
+                                    <button type="submit" class="bg-yellow-200 rounded-2xl p-2 text-blue-500 hover:text-red-500 duration-500">
+                                        <i class="flex justify-center items-center far fa-heart text-3xl"></i>
+                                        <font-awesome-icon icon="fas fa-heart" />
+                                    </button>
+                                </div>
+                            </form>
+
+
                             <div class="flex-row justify-center items-center text-center mt-3">
                                 <router-link :to="{ name: 'car.show', params: { slug: car.slug, id: car.id  } }">
                                     <button class="bg-cyan-400 hover:bg-cyan-500 duration-300 px-4 py-2 rounded-3xl text-white">
@@ -78,8 +85,11 @@
 <script setup>
 import useCars from "../../composables/cars";
 import {onMounted} from "vue";
+import useAuth from "@/composables/auth";
 
-const { cars, getCars} = useCars();
+const { user } = useAuth();
+
+const { cars, getCars, addFavorite } = useCars();
 onMounted(getCars)
 
 </script>
