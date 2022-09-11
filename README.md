@@ -15,7 +15,8 @@
 <p>npm run dev</p>
 <p>php artisan serve</p>
 
-<div>Accounts</div>
+<div>Accounts:</div>
+<br>
 <p>ADMIN</p>
 <p>Login: admin@example.com</p>
 <p>Password: admin1234</p>
