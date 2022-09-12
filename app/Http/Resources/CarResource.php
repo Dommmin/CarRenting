@@ -33,6 +33,7 @@ class CarResource extends JsonResource
             'images' => $this->images,
             'main' => $this->main,
             'description' => $this->description,
+            'favorites' => FavoriteResource::collection($this->favorites),
         ];
     }
 }

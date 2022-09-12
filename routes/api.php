@@ -26,7 +26,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     });
 });
 
-Route::post('/cars/{car}/favorite', [CarController::class, 'addFavorite']);
+Route::post('/cars/{car}/add-favorite', [CarController::class, 'addFavorite']);
+Route::delete('/cars/{car}/remove-favorite/{user}', [CarController::class, 'removeFavorite']);
 Route::get('/car/{car:slug}', [CarController::class, 'show']);
 Route::apiResource('cars', CarController::class);
 Route::apiResource('rents', RentController::class);

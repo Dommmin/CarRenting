@@ -33,22 +33,6 @@ export default function useCars() {
                 })
     };
 
-    // const getCarBySlug = async (slug) => {
-    //     return new Promise((resolve) => {
-    //         axios.get('/api/car/' + slug)
-    //             .then(response => {
-    //                 resolve(car.value = response.data.data)
-    //             })
-    //             .catch(error => {
-    //                 router.push({ name: 'home' })
-    //                 swal({
-    //                     icon: 'error',
-    //                     title: 'Something went wrong'
-    //                 })
-    //             })
-    //     })
-    // };
-
     const getRents = async () => {
         axios.get('/api/rents')
             .then(response => {
@@ -118,8 +102,16 @@ export default function useCars() {
             })
     };
 
-    const addFavorite = async (car) => {
-        axios.post('/api/cars/' + car.id + '/favorite', car)
+    const addFavorite = async (car, user) => {
+        axios.post('/api/cars/' + car.id + '/add-favorite', {car, user})
+            .then(response => {
+                router.push({ name: 'cars.index' })
+                getCars();
+            })
+    };
+
+    const removeFavorite = async (car, user) => {
+        axios.delete('/api/cars/' + car + '/remove-favorite/' + user)
             .then(response => {
                 router.push({ name: 'cars.index' })
                 getCars();
@@ -222,5 +214,6 @@ export default function useCars() {
         validationErrors,
         isLoading,
         addFavorite,
+        removeFavorite
     }
 }

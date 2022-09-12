@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CarResource;
+use App\Http\Resources\FavoriteResource;
 use App\Models\Car;
 use App\Models\Favorite;
 use Illuminate\Http\Request;
@@ -34,19 +35,33 @@ class CarController extends Controller
         return new CarResource($car);
     }
 
+    /**
+     * @param Request $request
+     * @return FavoriteResource
+     */
     public function addFavorite(Request $request)
     {
         $favorite = new Favorite();
-        $favorite->user_id = 11;
+        $favorite->user_id = $request['user'];
         $favorite->car_id = $request['car'];
         $favorite->is_favorite = true;
         $favorite->save();
 
-        return new CarResource($favorite);
+        return new FavoriteResource($favorite);
     }
 
-    public function removeFavorite()
+    /**
+     * @param Request $request
+     * @return FavoriteResource
+     */
+    public function removeFavorite(Request $request)
     {
+        $favorite = Favorite::where('user_id', $request['user'])
+            ->where('car_id', $request['car'])
+            ->first();
 
+        $favorite->delete();
+
+        return new FavoriteResource($favorite);
     }
 }

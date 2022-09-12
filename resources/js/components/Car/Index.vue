@@ -15,6 +15,7 @@
                     </div>
                 </div>
 
+
                 <div class="mt-10">
                     <p class="font-bold text-2xl">Najczęściej wynajmowane samochody</p>
                     <div class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols mb-10 w-auto">
@@ -54,16 +55,47 @@
                             </div>
                             <hr class="mr-5 ml-5 mt-3 mb-3">
 
+                            <!-- Favorites -->
 
-                            <form @submit.prevent="addFavorite(car)">
-                                <div class="flex justify-center items-center">
-                                    <button type="submit" class="bg-yellow-200 rounded-2xl p-2 text-blue-500 hover:text-red-500 duration-500">
-                                        <i class="flex justify-center items-center far fa-heart text-3xl"></i>
-                                        <font-awesome-icon icon="fas fa-heart" />
-                                    </button>
+<!--                            <div v-for="favorite in car.favorites">-->
+<!--&lt;!&ndash;                                <div v-if="favorite.user_id === user.id">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <i class="flex justify-center items-center fas fa-heart text-3xl text-red-500 hover:text-blue-500 duration-500"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div v-if="favorite.user_id === user.id">&ndash;&gt;-->
+<!--                                    <i class="flex justify-center items-center fas fa-heart text-3xl"></i>-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                                <div>-->
+<!--                                    <i class="flex justify-center items-center far fa-heart text-3xl"></i>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+
+
+                            <div>
+                                <div v-if="car.favorites.length === 0">
+                                    <form @submit.prevent="addFavorite(car.id, user.id)">
+                                        <div class="flex justify-center items-center">
+                                            <button type="submit" class="bg-yellow-200 rounded-2xl p-2 text-blue-500 hover:text-red-500 duration-500">
+                                                <i class="flex justify-center items-center far fa-heart text-3xl"></i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
 
+                                <div v-for="favorite in car.favorites">
+                                    <div v-if="favorite.user_id === user.id">
+                                        <form @submit.prevent="removeFavorite(car.id, user.id)">
+                                            <div class="flex justify-center items-center">
+                                                <button type="submit" class="bg-yellow-200 rounded-2xl p-2 text-blue-500 hover:text-red-500 duration-500">
+                                                    <i class="flex justify-center items-center fas fa-heart text-3xl text-red-500 hover:text-blue-500 duration-500"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Favorites -->
 
                             <div class="flex-row justify-center items-center text-center mt-3">
                                 <router-link :to="{ name: 'car.show', params: { slug: car.slug, id: car.id  } }">
@@ -72,6 +104,9 @@
                                     </button>
                                 </router-link>
                             </div>
+
+
+
                         </div>
                         <!-- Car --->
                     </div>
@@ -89,7 +124,7 @@ import useAuth from "@/composables/auth";
 
 const { user } = useAuth();
 
-const { cars, getCars, addFavorite } = useCars();
+const { cars, getCars, addFavorite, removeFavorite } = useCars();
 onMounted(getCars)
 
 </script>

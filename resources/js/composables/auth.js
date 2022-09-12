@@ -36,6 +36,7 @@ export default function useAuth() {
     }
 
     const loginUser = (response) => {
+        user.id = response.data.id
         user.name = response.data.name
         user.email = response.data.email
         localStorage.setItem('loggedIn', JSON.stringify(true))
